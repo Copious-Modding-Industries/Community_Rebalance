@@ -36,7 +36,7 @@ local ability_comp = EntityGetFirstComponent( entity_id, "AbilityComponent" )
 
 local gun = { }
 gun.name = {"Bolt staff"}
-gun.deck_capacity = {2,3}
+gun.deck_capacity = 3 -- pudy248: Made constant at 3
 gun.actions_per_round = 1
 gun.reload_time = {20,28}
 gun.shuffle_deck_when_empty = 0
@@ -49,7 +49,6 @@ gun.mana_max = {80,130}
 gun.actions = {"SPITTER","RUBBER_BALL","BOUNCY_ORB"}
 
 local mana_max = get_random_between_range( gun.mana_max )
-local deck_capacity = get_random_between_range( gun.deck_capacity )
 
 ComponentSetValue( ability_comp, "ui_name", get_random_from( gun.name ) )
 
@@ -58,7 +57,7 @@ ComponentObjectSetValue( ability_comp, "gunaction_config", "fire_rate_wait", get
 ComponentSetValue( ability_comp, "mana_charge_speed", get_random_between_range( gun.mana_charge_speed) )
 
 ComponentObjectSetValue( ability_comp, "gun_config", "actions_per_round", gun.actions_per_round )
-ComponentObjectSetValue( ability_comp, "gun_config", "deck_capacity", deck_capacity )
+ComponentObjectSetValue( ability_comp, "gun_config", "deck_capacity", gun.deck_capacity )
 ComponentObjectSetValue( ability_comp, "gun_config", "shuffle_deck_when_empty", gun.shuffle_deck_when_empty )
 ComponentObjectSetValue( ability_comp, "gunaction_config", "spread_degrees", gun.spread_degrees )
 ComponentObjectSetValue( ability_comp, "gunaction_config", "speed_multiplier", gun.speed_multiplier )
@@ -66,7 +65,7 @@ ComponentObjectSetValue( ability_comp, "gunaction_config", "speed_multiplier", g
 ComponentSetValue( ability_comp, "mana_max", mana_max )
 ComponentSetValue( ability_comp, "mana", mana_max )
 
-local action_count = math.min(Random(1,3), tonumber(deck_capacity))
+local action_count = math.min(Random(1,3), tonumber(gun.deck_capacity))
 local gun_action = "LIGHT_BULLET"
 
 local n_of_deaths = tonumber( StatsGlobalGetValue("death_count") )

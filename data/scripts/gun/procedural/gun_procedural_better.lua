@@ -28,11 +28,12 @@ gun_probs[ "reload_time" ] =
 		name = "reload_time",
 		total_prob = 0,
 		{
+			-- pudy248: a teensy bit slower on average
 			-- name = "normal",
 			prob = 1,
 			min = 5,
-			max = 40,
-			mean = 20,
+			max = 60,
+			mean = 30,
 			sharpness = 2,
 		},
 	}
@@ -451,15 +452,15 @@ function generate_gun( cost, level, force_unshuffle )
 		gun["speed_multiplier"] = 0
 		gun["prob_unshuffle"] = 0.1
 		gun["prob_draw_many"] = 0.15
-		gun["mana_charge_speed"] = 50*level + Random(-5,5*level)
-		gun["mana_max"] = 50 + (150 * level) + (Random(-5,5)*10)
+		gun["mana_charge_speed"] = RandomDistributionf(20 * level, 80 * level, 50 * level, 5) -- pudy248: provisional mana rework
+		gun["mana_max"] = 50 + RandomDistributionf(100 * level, 200 * level, 150 * level, 5) -- pudy248: ^^
 		gun["force_unshuffle"] = 0
 
 		p = Random(0,100)
 		-- slow mana charger
 		if( p < 20 ) then
-			gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) / 5
-			gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) * 3
+			gun["mana_charge_speed"] = RandomDistributionf(10 * level, 60 * level, 15 * level, 2.5) -- pudy248: ^^
+			gun["mana_max"] = 50 + RandomDistributionf(400 * level, 600 * level, 450 * level, 3) -- pudy248: ^^
 
 			if( gun["mana_charge_speed"] < 10 ) then
 				gun["mana_charge_speed"] = 10
@@ -547,7 +548,7 @@ function generate_gun( cost, level, force_unshuffle )
 		gun["deck_capacity"] = 2
 	end
 
-	if( gun["reload_time"] >= 60 ) then
+	if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 50) then -- pudy248: changed from reload >= 60 to shuffle == 1
 		
 		function random_add_actions_per_round()
 			gun["actions_per_round"] = gun["actions_per_round"] + 1

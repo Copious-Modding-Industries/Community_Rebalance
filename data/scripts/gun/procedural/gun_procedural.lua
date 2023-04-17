@@ -26,7 +26,7 @@ gun_probs[ "deck_capacity" ] =
 			max = 7,
 			mean = 4,
 			sharpness = 4,
-			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.8 end
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.7 end
 		},
 		{
 			-- name = "unshuffled tiny",
@@ -35,7 +35,7 @@ gun_probs[ "deck_capacity" ] =
 			max = 5,
 			mean = 3,
 			sharpness = 4,
-			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.8 end
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.7 end
 		},
 		{
 			-- name = "machine gun",
@@ -60,7 +60,7 @@ gun_probs[ "deck_capacity" ] =
 			max = 12,
 			mean = 6,
 			sharpness = 6,
-			extra = function( gun ) gun["prob_draw_many"] = gun["prob_draw_many"] + 0.8 end
+			extra = function( gun ) gun["prob_draw_many"] = gun["prob_draw_many"] + 0.7 end
 		},
 		{
 			-- name = "linear_crazyw",
@@ -79,20 +79,23 @@ gun_probs[ "reload_time" ] =
 		name = "reload_time",
 		total_prob = 0,
 		{
+			-- pudy248: Made slower
 			-- name = "normal",
 			prob = 1,
-			min = 5,
-			max = 60,
-			mean = 30,
+			min = 10,
+			max = 80,
+			mean = 40,
 			sharpness = 2,
 		},
 		{
+			-- pudy248: Made slower and added 20% extra non-shuffle chance
 			-- name = "normal",
 			prob = 0.5,
 			min = 1,
 			max = 100,
-			mean = 40,
+			mean = 50,
 			sharpness = 2,
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.2 end 
 		},
 		{
 			-- name = "linear",
@@ -103,13 +106,14 @@ gun_probs[ "reload_time" ] =
 			sharpness = 0,
 		},
 		{
+			-- pudy248: Made slower and increased unshuffle chance
 			-- name = "linear_crazy",
 			prob = 0.35,
 			min = 1,
 			max = 240,
-			mean = 40,
+			mean = 80,
 			sharpness = 0,
-			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.5 end
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.6 end 
 		},
 	}
 
@@ -124,35 +128,30 @@ gun_probs[ "fire_rate_wait" ] =
 		name = "fire_rate_wait",
 		total_prob = 0,
 		{
+			-- pudy248: Drastically decreased chance
 			-- name = "machine gun",
-			prob = 1,
+			prob = 0.5,
 			min = 1,
 			max = 30,
 			mean = 5,
 			sharpness = 2,
 		},
 		{
+			-- pudy248: Made slower
 			-- name = "shotgun",
-			prob = 0.1,
-			min = 1,
+			prob = 0.5,
+			min = 10,
 			max = 50,
-			mean = 15,
+			mean = 30,
 			sharpness = 3,
 		},
-		{
-			-- name = "submachine gun",
-			prob = 0.1,
-			min = -15,
-			max = 15,
-			mean = 0,
-			sharpness = 3,
-		},
+		-- pudy248: Remuved submachine gun entirely
 		{
 			-- name = "linear_anything goes",
-			prob = 0.45,
-			min = 0,
-			max = 35,
-			mean = 12,
+			prob = 0.1,
+			min = -35,
+			max = 50,
+			mean = 5,
 			sharpness = 0,
 		},
 	}
@@ -298,7 +297,7 @@ gun_probs[ "actions_per_round" ] =
 		},
 		{
 			-- name = "linear",
-			prob = 1,
+			prob = 0.1, -- pudy248: Changed from 1 to 0.1, making high multicast wands just a bit rarer
 			min = 1,
 			max = 5,
 			mean = 2,
@@ -426,7 +425,7 @@ function apply_random_variable( t_gun, variable )
 	local cost = t_gun["cost"]
 	local probs = get_gun_probs( variable )
 
-	-- deck_capacity = [10-240]
+	-- reload_time = [10-240]
 	-- cost: (60-L2)/5
 	if( variable == "reload_time") then
 		local min = clamp( 60-(cost*5), 1, 240 )
@@ -491,7 +490,7 @@ function apply_random_variable( t_gun, variable )
 	-- shuffle_deck_when_empty [0,1]
 	-- cost: = 15+deck_capacity*5
 	if( variable == "shuffle_deck_when_empty") then
-		local random = Random( 0, 1 )
+		local random = Randomf( 0, 1 )
 		if( t_gun["force_unshuffle"] == 1 ) then 
 			random = 1 
 			if( cost < (15+deck_capacity*5) ) then
@@ -500,7 +499,7 @@ function apply_random_variable( t_gun, variable )
 		end
 
 		-- clamped unshuffles to deck capacity 9
-		if( random == 1 and cost >= (15+deck_capacity*5) and deck_capacity <= 9 ) then
+		if( random > t_gun["prob_unshuffle"] and cost >= (15+deck_capacity*5) and deck_capacity <= 9 ) then
 			t_gun[variable] = 0
 			t_gun["cost"] = t_gun["cost"] - ( (15+deck_capacity*5) )
 			-- print("unshuffling the deck ")
@@ -623,25 +622,25 @@ function get_gun_data( cost, level, force_unshuffle )
 	gun["fire_rate_wait"] = 0
 	gun["spread_degrees"] = 0
 	gun["speed_multiplier"] = 0
-	gun["prob_unshuffle"] = 0.1
+	gun["prob_unshuffle"] = 0.3
 	gun["prob_draw_many"] = 0.15
-	gun["mana_charge_speed"] = 50*level + Random(-5,5*level)
-	gun["mana_max"] = 50 + (150 * level) + (Random(-5,5)*10)
+	gun["mana_charge_speed"] = RandomDistributionf(20 * level, 80 * level, 50 * level, 5) -- pudy248: provisional mana rework
+	gun["mana_max"] = 50 + RandomDistributionf(100 * level, 200 * level, 150 * level, 5) -- pudy248: ^^
 	gun["force_unshuffle"] = 0
 	gun["is_rare"] = 0
 
 	-- slow mana charger
 	p = Random(0,100)
 	if( p < 20 ) then
-		gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) / 5
-		gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) * 3
+		gun["mana_charge_speed"] = RandomDistributionf(10 * level, 60 * level, 15 * level, 2.5) -- pudy248: ^^
+		gun["mana_max"] = 50 + RandomDistributionf(400 * level, 600 * level, 450 * level, 3) -- pudy248: ^^
 	end
 
 	-- really fast mana chargers
 	p = Random(0,100)
 	if( p < 15 ) then 
-		gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) * 5
-		gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) / 3
+		gun["mana_charge_speed"] =  RandomDistributionf(80 * level, 300 * level, 150 * level, 2) -- pudy248: ^^
+		gun["mana_max"] = 50 + RandomDistributionf(30 * level, 90 * level, 50 * level, 3) -- pudy248: ^^
 	end
 
 
@@ -730,7 +729,7 @@ function get_gun_data( cost, level, force_unshuffle )
 		gun["deck_capacity"] = 2
 	end
 
-	if( gun["reload_time"] >= 60 ) then
+	if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 50) then -- pudy248: changed from reload >= 60 to shuffle == 1
 		
 		function random_add_actions_per_round()
 			gun["actions_per_round"] = gun["actions_per_round"] + 1
