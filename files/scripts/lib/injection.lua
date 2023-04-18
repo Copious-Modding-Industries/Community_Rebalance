@@ -32,3 +32,23 @@ function replace(file, target, text)
 	ModTextFileSetContent(file, new)
 	if content == new then print("INJECTION (REPLACE) FAILED:\nFile: "..file.."\nTarget: "..target.."\nText: "..text) end
 end
+
+-- File wrapper to make syntax highlighting and stuff work, just to reduce chance of errors.
+
+function append_from_file(file,target_file,text_file)
+	local target = ModTextFileGetContent(target_file)
+	local text = ModTextFileGetContent(text_file)
+	append(file,target,text)
+end
+
+function prepend_from_file(file,target_file,text_file)
+	local target = ModTextFileGetContent(target_file)
+	local text = ModTextFileGetContent(text_file)
+	prepend(file,target,text)
+end
+
+function replace_from_file(file,target_file,text_file)
+	local target = ModTextFileGetContent(target_file)
+	local text = ModTextFileGetContent(text_file)
+	replace(file,target,text)
+end
