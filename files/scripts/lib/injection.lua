@@ -39,8 +39,9 @@ function prepend(file, target, text)
 	local after = content:sub(first)
 	local new = before .. text .. after
 	ModTextFileSetContent(file, new)
-
-	log({ "Injected (prepend) ", text, " in ", file, " at ", target, " causing:\n", new, "\nfrom: \n", content })
+	if ENABLE_LOGGING then
+		log({ "Injected (prepend) ", text, " in ", file, " at ", target, " causing:\n", new, "\nfrom: \n", content })
+	end
 	if content == new then
 		log({ "INJECTION (PREPEND) FAILED: NO CHANGE\nFile: ", file, "\nTarget: ", target, "\nText: ", text })
 	end
@@ -57,7 +58,9 @@ function replace(file, target, text)
 	local after = content:sub(last + 1)
 	local new = before .. text .. after
 	ModTextFileSetContent(file, new)
-	log({ "Injected (replace) ", text, " in ", file, " at ", target, " causing:\n", new, "\nfrom: \n", content })
+	if ENABLE_LOGGING then
+		log({ "Injected (replace) ", text, " in ", file, " at ", target, " causing:\n", new, "\nfrom: \n", content })
+	end
 	if content == new then
 		log({ "INJECTION (REPLACE) FAILED: NO CHANGE\nFile: ", file, "\nTarget: ", target, "\nText: ", text })
 	end

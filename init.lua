@@ -20,4 +20,5 @@ function OnModInit()
     -- Spell Rebalancing
     content.actions()
 	content.perks()
+    content.wands()
 end
