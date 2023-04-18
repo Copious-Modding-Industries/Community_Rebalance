@@ -3,6 +3,8 @@
 
 -- Nathan injection functions
 
+local ENABLE_LOGGING = false -- change this thing if you want to spam the console
+
 function append(file, target, text)
 	local content = ModTextFileGetContent(file)
 	local first, last = content:find(target, 0, true)
@@ -10,7 +12,14 @@ function append(file, target, text)
 	local after = content:sub(last + 1)
 	local new = before .. text .. after
 	ModTextFileSetContent(file, new)
-	if content == new then print("INJECTION (APPEND) FAILED:\nFile: "..file.."\nTarget: "..target.."\nText: "..text) end
+	if ENABLE_LOGGING then
+		print("Injected (append) " ..
+			text .. " in " .. file .. " at " .. target .. " causing:\n" .. new .. "\nfrom: \n" .. content)
+	end
+	if content == new then
+		print("INJECTION (APPEND) FAILED:\nFile: " .. file .. "\nTarget: " .. target ..
+			"\nText: " .. text)
+	end
 end
 
 function prepend(file, target, text)
@@ -20,7 +29,12 @@ function prepend(file, target, text)
 	local after = content:sub(first)
 	local new = before .. text .. after
 	ModTextFileSetContent(file, new)
-	if content == new then print("INJECTION (PREPEND) FAILED:\nFile: "..file.."\nTarget: "..target.."\nText: "..text) end
+	print("Injected (prepend) " ..
+		text .. " in " .. file .. " at " .. target .. " causing:\n" .. new .. "\nfrom: \n" .. content)
+	if content == new then
+		print("INJECTION (PREPEND) FAILED:\nFile: " .. file .. "\nTarget: " ..
+			target .. "\nText: " .. text)
+	end
 end
 
 function replace(file, target, text)
@@ -30,25 +44,30 @@ function replace(file, target, text)
 	local after = content:sub(last + 1)
 	local new = before .. text .. after
 	ModTextFileSetContent(file, new)
-	if content == new then print("INJECTION (REPLACE) FAILED:\nFile: "..file.."\nTarget: "..target.."\nText: "..text) end
+	print("Injected (replace) " ..
+		text .. " in " .. file .. " at " .. target .. " causing:\n" .. new .. "\nfrom: \n" .. content)
+	if content == new then
+		print("INJECTION (REPLACE) FAILED:\nFile: " .. file .. "\nTarget: " ..
+			target .. "\nText: " .. text)
+	end
 end
 
 -- File wrapper to make syntax highlighting and stuff work, just to reduce chance of errors.
 
-function append_from_file(file,target_file,text_file)
+function append_from_file(file, target_file, text_file)
 	local target = ModTextFileGetContent(target_file)
 	local text = ModTextFileGetContent(text_file)
-	append(file,target,text)
+	append(file, target, text)
 end
 
-function prepend_from_file(file,target_file,text_file)
+function prepend_from_file(file, target_file, text_file)
 	local target = ModTextFileGetContent(target_file)
 	local text = ModTextFileGetContent(text_file)
-	prepend(file,target,text)
+	prepend(file, target, text)
 end
 
-function replace_from_file(file,target_file,text_file)
+function replace_from_file(file, target_file, text_file)
 	local target = ModTextFileGetContent(target_file)
 	local text = ModTextFileGetContent(text_file)
-	replace(file,target,text)
+	replace(file, target, text)
 end
