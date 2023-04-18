@@ -338,7 +338,7 @@ list_2 = {
 
 list_3 = {
 	{"gun.deck_capacity = {2,3}", "gun.deck_capacity = 3"},
-	{"ComponentObjectSetValue( ability_comp, \"gun_config\", \"deck_capacity\", deck_capacity )", "ComponentObjectSetValue( ability_comp, \"gun_config\", \"deck_capacity\", gun.deck_capacity )"}
+	{"ComponentObjectSetValue( ability_comp, \"gun_config\", \"deck_capacity\", deck_capacity )", "ComponentObjectSetValue( ability_comp, \"gun_config\", \"deck_capacity\", gun.deck_capacity )"},
 	{"local action_count = math.min(Random(1,3), tonumber(deck_capacity))","local action_count = math.min(Random(1,3), tonumber(gun.deck_capacity))"}
 }
 

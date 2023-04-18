@@ -19,6 +19,10 @@ local content = dofile_once("mods/community_rebalance/content.lua")
 function OnModInit()
     -- Spell Rebalancing
     content.actions()
+	-- Perk Rebalancing
 	content.perks()
-    content.wands()
+	-- Spell Xml
+	content.xml()
+  -- Wand gen
+  content.wands()
 end
