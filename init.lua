@@ -23,4 +23,6 @@ function OnModInit()
 	content.perks()
 	-- Spell Xml
 	content.xml()
+  -- Wand gen
+  content.wands()
 end
