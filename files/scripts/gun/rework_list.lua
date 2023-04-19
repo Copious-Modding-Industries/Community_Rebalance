@@ -47,11 +47,11 @@ local actions_to_edit = {
 	},
 
 	["LUMINOUS_DRILL"] = {
-		mana = 30,
+		mana = 20,
 	},
 
 	["LASER_LUMINOUS_DRILL"] = {
-		mana = 45,
+		mana = 40,
 	},
 
 	["FIREBALL_RAY"] = {
