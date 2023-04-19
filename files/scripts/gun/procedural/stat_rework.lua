@@ -297,7 +297,7 @@ gun_probs[ "actions_per_round" ] =
 	{[[gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) * 5]],[[gun["mana_charge_speed"] =  RandomDistributionf(80 * level, 300 * level, 150 * level, 2)]]},
 	{[[gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) / 3]],[[gun["mana_max"] = 50 + RandomDistributionf(30 * level, 90 * level, 50 * level, 3)]]},
 
-	{[[if( gun["reload_time"] >= 60 ) then]], [[if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 40) then]]}
+	{[[if( gun["reload_time"] >= 60 ) then]], [[if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 40) then]]},
 }
 
 list_2 = {
@@ -333,12 +333,12 @@ list_2 = {
 	{[[gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) / 5]],[[gun["mana_charge_speed"] = RandomDistributionf(10 * level, 60 * level, 15 * level, 2.5)]]},
 	{[[gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) * 3]],[[gun["mana_max"] = 50 + RandomDistributionf(400 * level, 600 * level, 450 * level, 3)]]},
 
-	{[[if( gun["reload_time"] >= 60 ) then]], [[if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 40) then]]}
+	{[[if( gun["reload_time"] >= 60 ) then]], [[if( gun["shuffle_deck_when_empty"] == 1 and Random(1, 100) <= 40) then]]},
 }
 
 list_3 = {
-	{"gun.deck_capacity = {2,3}", "gun.deck_capacity = 3"},
-	{"local deck_capacity = get_random_between_range( gun.deck_capacity )","local deck_capacity = gun.deck_capacity"}
+    {"gun.deck_capacity = {2,3}", "gun.deck_capacity = 3"},
+    {"local deck_capacity = get_random_between_range( gun.deck_capacity )","local deck_capacity = gun.deck_capacity"},
 }
 
 for k,v in ipairs(list) do
