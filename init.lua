@@ -13,16 +13,17 @@ function OnPausedChanged(is_paused, is_inventory_pause) end
 function OnModSettingsChanged() end
 function OnPausePreUpdate() end
 ]]
-
 local content = dofile_once("mods/community_rebalance/content.lua")
 
 function OnModInit()
-    -- Spell Rebalancing
-    content.actions()
+	-- Spell Rebalancing
+	content.actions()
 	-- Perk Rebalancing
 	content.perks()
 	-- Spell Xml
 	content.xml()
-  -- Wand gen
-  content.wands()
+	-- Wand gen
+	content.wands()
+	-- Gun patching
+	content.gun()
 end
