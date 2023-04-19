@@ -29,7 +29,7 @@ local actions_to_edit = {
 			local amount_to_remove = math.min(mana * mana_per_cd_frame, c.fire_rate_wait)
 			mana = mana - amount_to_remove * mana_per_cd_frame
 			add_projectile("data/entities/projectiles/deck/chainsaw.xml")
-			-- Tweak: mana reduction proportional to cast delay reduced, need feedback on scaling
+			-- Tweak:  mana reduction proportional to cast delay reduced, need feedback on scaling
 			c.fire_rate_wait = c.fire_rate_wait - amount_to_remove
 			c.spread_degrees = c.spread_degrees + 6.0
 			current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
