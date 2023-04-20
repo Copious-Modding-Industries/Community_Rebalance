@@ -2,6 +2,9 @@
 counter = {}
 trigger_nesting = 0
 function draw_shot_trigger(shot, instant_reload_if_empty)
+	if trigger_nesting ~= 0 then
+		counter[trigger_nesting] = counter[trigger_nesting] + 1
+	end
 	trigger_nesting = trigger_nesting + 1
 	counter[trigger_nesting] = 0
 	local c_old = c
