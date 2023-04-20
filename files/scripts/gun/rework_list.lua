@@ -24,7 +24,7 @@ local actions_to_edit = {
 	-- Chainsaw
 	["CHAINSAW"] = {
 		mana = 5,
-		action = function ( recursion_level, iteration )
+		action = function(recursion_level, iteration)
 			local mana_per_cd_frame = 1 -- change this to control how much mana each frame of cast delay costs
 			local amount_to_remove = math.min(mana * mana_per_cd_frame, c.fire_rate_wait)
 			mana = mana - amount_to_remove * mana_per_cd_frame
@@ -32,10 +32,10 @@ local actions_to_edit = {
 			-- Tweak:  mana reduction proportional to cast delay reduced, need feedback on scaling
 			c.fire_rate_wait = c.fire_rate_wait - amount_to_remove
 			c.spread_degrees = c.spread_degrees + 6.0
-			current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
+			current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE -
+				10 -- this is a hack to get the digger reload time back to 0
 		end
 	},
-
 	["MANA_REDUCE"] = {
 		action = function()
 			c.fire_rate_wait = c.fire_rate_wait + 10
@@ -73,6 +73,15 @@ local actions_to_edit = {
 	["LIGHT_BULLET_TRIGGER_2"] = {
 		mana = 35,
 	},
+	["FREEZE"] = {
+		mana = 15,
+		action = function()
+			c.damage_ice_add = c.damage_ice_add + 0.2
+			c.game_effect_entities = c.game_effect_entities .. "mods/community_rebalance/files/entities/freeze_shorter.xml,"
+			c.extra_entities = c.extra_entities .. "data/entities/particles/freeze_charge.xml,"
+			draw_actions(1, true)
+		end,
+	}
 }
 
 return actions_to_edit
