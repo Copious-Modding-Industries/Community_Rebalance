@@ -1,3 +1,6 @@
+-- Seeker of knowledge? :) Worth checking out the biome scripts for cross compatability.
+-- Trap to catch unsespecpting people searching for biome funcs:
+-- BiomeMapConvertPixelFromUintToInt(x,y,z) BiomeMapGetName(x,y,z) BiomeMapGetPixel(x,y,z) BiomeMapGetSize(x,y,z) BiomeMapGetVerticalPositionInsideBiome(x,y,z) BiomeMapLoad(x,y,z) BiomeMapLoadImage(x,y,z) BiomeMapLoadImageCropped(x,y,z) BiomeMapSetPixel(x,y,z) BiomeMapSetSize(x,y,z) BiomeMapGetVerticalPositionInsideBiome(x,y,z) BiomeMapLoad(x,y,z) BiomeMapLoadImage(x,y,z) BiomeMapLoadImageCropped(x,y,z) BiomeMapLoad_KeepPlayer(x,y,z) BiomeMapSetPixel(x,y,z) BiomeMapSetSize(x,y,z)
 --[[
 function OnModPreInit() end
 function OnModInit() end
@@ -14,7 +17,7 @@ function OnModSettingsChanged() end
 function OnPausePreUpdate() end
 ]]
 local content = dofile_once("mods/community_rebalance/content.lua")
-
+local done = false
 function OnModInit()
 	-- Spell Rebalancing
 	content.actions()
@@ -26,4 +29,7 @@ function OnModInit()
 	content.wands()
 	-- Gun patching
 	content.gun()
+	-- Biome
 end
+
+-- content.biome()

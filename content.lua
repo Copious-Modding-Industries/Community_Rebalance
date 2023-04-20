@@ -20,4 +20,7 @@ return {
 		-- Patch gun.lua
 		dofile_once("mods/community_rebalance/files/scripts/gun/gun/rework.lua")
 	end,
+	biome = function ()
+		dofile_once("mods/community_rebalance/files/scripts/biome/rework.lua")
+	end,
 }
