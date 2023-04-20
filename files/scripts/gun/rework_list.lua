@@ -85,7 +85,6 @@ local actions_to_edit = {
 	},
 	["ADD_TRIGGER"] = {
 		action = function()
-			print("chest")
 			local data = {}
 
 			local how_many = 1
@@ -165,7 +164,6 @@ local actions_to_edit = {
 	},
 	["ADD_TIMER"] = {
 		action = function()
-			print("chest")
 			local data = {}
 
 			local how_many = 1
@@ -243,9 +241,8 @@ local actions_to_edit = {
 			end
 		end,
 	},
-	["ADD_TIMER"] = {
+	["ADD_DEATH_TRIGGER"] = {
 		action = function()
-			print("chest")
 			local data = {}
 
 			local how_many = 1
