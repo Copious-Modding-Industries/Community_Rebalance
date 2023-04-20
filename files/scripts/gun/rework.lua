@@ -10,6 +10,7 @@ local actions_to_edit = dofile_once("mods/community_rebalance/files/scripts/gun/
 for actions_index = 1,#actions do
     for edit_id, edit_contents in pairs(actions_to_edit) do
         if actions[actions_index].id == edit_id then
+			-- print("doing "..edit_id)
             for key, value in pairs(edit_contents) do
                 actions[actions_index][key] = value
             end
