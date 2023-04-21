@@ -78,7 +78,7 @@ local actions_to_edit = {
 		action = function()
 			c.damage_ice_add = c.damage_ice_add + 0.2
 			c.game_effect_entities = c.game_effect_entities ..
-			"mods/community_rebalance/files/entities/freeze_shorter.xml,"
+				"mods/community_rebalance/files/entities/freeze_shorter.xml,"
 			c.extra_entities = c.extra_entities .. "data/entities/particles/freeze_charge.xml,"
 			draw_actions(1, true)
 		end,
@@ -318,7 +318,7 @@ local actions_to_edit = {
 					end
 				end
 			end
-		end,	
+		end,
 	},
 	["LONG_DISTANCE_CAST"] = {
 		mana = 10,
@@ -328,6 +328,9 @@ local actions_to_edit = {
 	},
 	["WARP_CAST"] = {
 		mana = 10,
+	},
+	["FREEZING_GAZE"] = {
+		max_uses = 8,
 	},
 }
 
