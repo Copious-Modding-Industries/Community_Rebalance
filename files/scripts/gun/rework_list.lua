@@ -332,6 +332,57 @@ local actions_to_edit = {
 	["FREEZING_GAZE"] = {
 		max_uses = 8,
 	},
+	["HEAVY_SHOT"] = {
+		mana = 12,
+		action = function()
+			c.damage_projectile_add       = c.damage_projectile_add + 0.8
+			c.fire_rate_wait              = c.fire_rate_wait + 10
+			c.gore_particles              = c.gore_particles + 10
+			c.speed_multiplier            = c.speed_multiplier * 0.45
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback + 50.0
+			c.extra_entities              = c.extra_entities .. "data/entities/particles/heavy_shot.xml,"
+
+			if (c.speed_multiplier >= 20) then
+				c.speed_multiplier = math.min(c.speed_multiplier, 20)
+			elseif (c.speed_multiplier < 0) then
+				c.speed_multiplier = 0
+			end
+
+			draw_actions(1, true)
+		end,
+	},
+	["LIGHT_SHOT"] = {
+		action = function()
+			c.damage_projectile_add       = c.damage_projectile_add - 0.3
+			c.fire_rate_wait              = c.fire_rate_wait - 3
+			c.speed_multiplier            = c.speed_multiplier * 7.5
+			c.spread_degrees              = c.spread_degrees - 6
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback - 10.0
+			c.extra_entities              = c.extra_entities .. "data/entities/particles/light_shot.xml,"
+
+			if (c.speed_multiplier >= 20) then
+				c.speed_multiplier = math.min(c.speed_multiplier, 20)
+			elseif (c.speed_multiplier < 0) then
+				c.speed_multiplier = 0
+			end
+
+			draw_actions(1, true)
+		end,
+	},
+	["KNOCKBACK"] = {
+		mana = 2,
+		price = 40, -- make cheaper so it isnt an investment to buy garbage spells
+	},
+	["RECOIL"] = {
+		mana = 3,
+		price = 30,
+		action = function()
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200.0
+			c.fire_rate_wait = c.fire_rate_wait - 3 -- make this encourage usage for transport otherwise its literally useless in every way
+			current_reload_time = current_reload_time - 1
+			draw_actions(1, true)
+		end,
+	},
 }
 
 return actions_to_edit
