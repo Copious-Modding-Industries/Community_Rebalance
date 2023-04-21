@@ -318,7 +318,16 @@ local actions_to_edit = {
 					end
 				end
 			end
-		end,
+		end,	
+	},
+	["LONG_DISTANCE_CAST"] = {
+		mana = 10,
+	},
+	["TELEPORT_CAST"] = {
+		mana = 35,
+	},
+	["WARP_CAST"] = {
+		mana = 10,
 	},
 }
 
