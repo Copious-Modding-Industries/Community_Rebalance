@@ -482,6 +482,18 @@ function XML_ELEMENT_FUNCS:each_child()
     end
 end
 
+function XML_ELEMENT_FUNCS:each_child_i() -- Nathan func
+    local i = 0
+    local n = #self.children
+
+    return function()
+        while i < n do
+            i = i + 1
+            return i,self.children[i] -- yield but weird
+        end
+    end
+end
+
 function nxml.parse(data)
     local data_len = #data
     local tok = new_tokenizer(str_normalize(data), data_len)

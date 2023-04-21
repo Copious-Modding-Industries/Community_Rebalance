@@ -1,3 +1,6 @@
 dofile_once("mods/community_rebalance/files/scripts/lib/print.lua")
 nxml = dofile_once("mods/community_rebalance/files/scripts/lib/nxml.lua")
 dofile_once("mods/community_rebalance/files/scripts/xml/ball_lightning.lua")
+dofile_once("mods/community_rebalance/files/scripts/xml/freeze.lua")
+dofile_once("mods/community_rebalance/files/scripts/xml/fireball_orbit.lua")
+dofile_once("mods/community_rebalance/files/scripts/xml/freezing_gaze.lua")
