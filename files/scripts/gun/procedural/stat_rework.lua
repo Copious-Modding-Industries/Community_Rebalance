@@ -56,10 +56,10 @@ gun_probs[ "deck_capacity" ] =
 			max = 12,
 			mean = 6,
 			sharpness = 6,
-			extra = function( gun ) gun["prob_draw_many"] = gun["prob_draw_many"] + 0.7 end
+			extra = function( gun ) gun["prob_draw_many"] = gun["prob_draw_many"] + 0.4 end
 		},
 		{
-			-- name = "linear_crazyw",
+			-- name = "linear_crazy",
 			prob = 1,
 			min = 1,
 			max = 20,
@@ -91,7 +91,7 @@ gun_probs[ "reload_time" ] =
 			max = 100,
 			mean = 50,
 			sharpness = 2,
-			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.2 end 
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.1 end 
 		},
 		{
 			-- name = "linear",
@@ -104,12 +104,12 @@ gun_probs[ "reload_time" ] =
 		{
 			-- pudy248: Made slower and increased unshuffle chance
 			-- name = "linear_crazy",
-			prob = 0.35,
+			prob = 0.15,
 			min = 1,
 			max = 240,
 			mean = 80,
 			sharpness = 0,
-			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.6 end 
+			extra = function( gun ) gun["prob_unshuffle"] = gun["prob_unshuffle"] + 0.3 end 
 		},
 	}
 
@@ -124,7 +124,6 @@ gun_probs[ "fire_rate_wait" ] =
 		name = "fire_rate_wait",
 		total_prob = 0,
 		{
-			-- pudy248: Drastically decreased chance
 			-- name = "machine gun",
 			prob = 0.5,
 			min = 1,
@@ -133,7 +132,6 @@ gun_probs[ "fire_rate_wait" ] =
 			sharpness = 2,
 		},
 		{
-			-- pudy248: Made slower
 			-- name = "shotgun",
 			prob = 0.5,
 			min = 10,
@@ -141,7 +139,14 @@ gun_probs[ "fire_rate_wait" ] =
 			mean = 30,
 			sharpness = 3,
 		},
-		-- pudy248: Remuved submachine gun entirely
+		{
+			-- name = "sniper",
+			prob = 0.2,
+			min = 40,
+			max = 100,
+			mean = 60,
+			sharpness = 2,
+		},
 		{
 			-- name = "linear_anything goes",
 			prob = 0.1,
