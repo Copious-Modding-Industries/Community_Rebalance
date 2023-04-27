@@ -383,6 +383,86 @@ local actions_to_edit = {
 			draw_actions(1, true)
 		end,
 	},
+	-- buff these three and make them more common so they're not dogwater (as much)
+	["FLAMETHROWER"] = {
+		spawn_level = "0,1,2,3,4,6",
+		spawn_probability = "0.5,0.5,1,1,1,1",
+		max_uses = -1,
+	},
+	["FIREBALL"] = {
+		spawn_level = "0,1,2,3,4,6",
+		spawn_probability = "0.5,0.5,1,1,1,1",
+		mana = 20, -- from 70
+		max_uses = 25, -- from 15
+		action 		= function()
+			add_projectile("data/entities/projectiles/deck/fireball.xml")
+			c.spread_degrees = c.spread_degrees + 4.0
+			c.fire_rate_wait = c.fire_rate_wait + 20 -- from 50
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback + 20.0
+		end,
+	},
+	["ICEBALL"] = {
+		spawn_level = "0,1,2,3,4,6",
+		spawn_probability = "0.5,0.5,1,1,1,1",
+		mana = 30, -- from 90
+		max_uses = 25, -- from 15
+		action 		= function()
+			add_projectile("data/entities/projectiles/deck/iceball.xml")
+			c.spread_degrees = c.spread_degrees + 8.0
+			c.fire_rate_wait = c.fire_rate_wait + 40 -- from 80
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback + 20.0
+		end,
+	},
+	-- lost cause tbh
+	["PURPLE_EXPLOSION_FIELD"] = {
+		max_uses = -1,
+		action 		= function()
+			add_projectile("data/entities/projectiles/deck/purple_explosion_field.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 10
+		end,
+	},
+	-- why were these not modifiers before (controversial?)
+	--[[
+	["MONEY_MAGIC"] = {
+		type 		= ACTION_TYPE_MODIFIER,
+	},
+	["BLOOD_TO_POWER"] = {
+		type 		= ACTION_TYPE_MODIFIER,
+	},
+	]]--
+	-- make these goobers add damage and lifetime
+	["CHAOTIC_ARC"] = {
+		action 		= function()
+			c.extra_entities = c.extra_entities .. "data/entities/misc/chaotic_arc.xml,"
+			c.speed_multiplier = c.speed_multiplier * 2
+			c.lifetime_add = c.lifetime_add + 40
+			c.damage_slice_add = c.damage_slice_add + 0.4
+			
+			if ( c.speed_multiplier >= 20 ) then
+				c.speed_multiplier = math.min( c.speed_multiplier, 20 )
+			elseif ( c.speed_multiplier < 0 ) then
+				c.speed_multiplier = 0
+			end
+			
+			draw_actions( 1, true )
+		end,
+	},
+	["SINEWAVE"] = {
+		action 		= function()
+			c.extra_entities = c.extra_entities .. "data/entities/misc/sinewave.xml,"
+			c.speed_multiplier = c.speed_multiplier * 2
+			c.lifetime_add = c.lifetime_add + 15
+			c.damage_projectile_add = c.damage_projectile_add + 0.2
+			
+			if ( c.speed_multiplier >= 20 ) then
+				c.speed_multiplier = math.min( c.speed_multiplier, 20 )
+			elseif ( c.speed_multiplier < 0 ) then
+				c.speed_multiplier = 0
+			end
+			
+			draw_actions( 1, true )
+		end,
+	}
 }
 
 return actions_to_edit
