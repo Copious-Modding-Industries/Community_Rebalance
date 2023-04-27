@@ -1,5 +1,5 @@
 local xml = nxml.parse(ModTextFileGetContent("data/entities/projectiles/deck/freezing_gaze_beam.xml"))
-print_any(xml)
+-- print_any(xml)
 local remover = {}
 local to = ""
 local from = ""
@@ -23,5 +23,5 @@ end
 local comp = table.concat({ " <MagicConvertMaterialComponent from_material_array=\"", from, "\" to_material_array=\"",
 	to, "\"steps_per_frame=\"20\" loop=\"1\" is_circle=\"1\" radius=\"20\" > </MagicConvertMaterialComponent>" })
 xml:add_child(nxml.parse(comp))
-print(tostring(xml))
+-- print(tostring(xml))
 ModTextFileSetContent("data/entities/projectiles/deck/freezing_gaze_beam.xml", tostring(xml))
