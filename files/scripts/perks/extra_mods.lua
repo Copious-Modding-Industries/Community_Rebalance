@@ -5,5 +5,5 @@ list = {
 	{"c.damage_projectile_add = c.damage_projectile_add + 0.5","c.damage_projectile_add = c.damage_projectile_add + 0.15"} -- conc spells
 }
 for k,v in ipairs(list) do
-	replace("data/scripts/gun/gun_extra_modifiers.lua",v[1],v[2])
+	inject(args.SS,modes.R,"data/scripts/gun/gun_extra_modifiers.lua",v[1],v[2])
 end

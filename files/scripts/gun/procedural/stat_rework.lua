@@ -347,13 +347,13 @@ list_3 = {
 }
 
 for k,v in ipairs(list) do
-	replace("data/scripts/gun/procedural/gun_procedural.lua",v[1],v[2])
+	inject(args.SS,modes.R,"data/scripts/gun/procedural/gun_procedural.lua",v[1],v[2])
 end
 
 for k,v in ipairs(list_2) do
-	replace("data/scripts/gun/procedural/gun_procedural_better.lua",v[1],v[2])
+	inject(args.SS,modes.R,"data/scripts/gun/procedural/gun_procedural_better.lua",v[1],v[2])
 end
 
 for k,v in ipairs(list_3) do
-	replace("data/scripts/gun/procedural/starting_wand.lua",v[1],v[2])
+	inject(args.SS,modes.R,"data/scripts/gun/procedural/starting_wand.lua",v[1],v[2])
 end
