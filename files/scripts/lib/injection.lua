@@ -95,7 +95,7 @@ modes = {
 	APPEND  = 2,
 }
 
---- @param args arg (use enum) What type are hook & new, (f)ile or (s)tring, write like (ff) or (sf).
+--- @param args arg (use enum) What type are hook & new, (f)ile or (s)tring, write like (ff) or (sf). hook -> new.
 --- @param mode mode (use enum) What injection mode, (p)repend, (r)eplace, (a)ppend.
 --- @param file string The file to inject into.
 --- @param hook string The files name or if using a string the string to match, this is the point where the injection hooks into.
