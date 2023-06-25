@@ -101,7 +101,7 @@ modes = {
 --- @param hook string The files name or if using a string the string to match, this is the point where the injection hooks into.
 --- @param new string The file with the new content to be added or the string of new content to be added.
 function inject(args, mode, file, hook, new)
-	local arg1T = args <= 2 -- true is file
+	local arg1T = args < 2 -- true is file
 	local arg2T = args % 2 == 0
 	if arg1T then
 		hook = getfile(hook)
