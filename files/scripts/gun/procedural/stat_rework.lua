@@ -283,7 +283,7 @@ gun_probs[ "actions_per_round" ] =
 -- prob_draw_many
 	]]},
 
-	{"if( variable == \"shuffle_deck_when_empty\") then\r\n		local random = Random",
+	{"if( variable == \"shuffle_deck_when_empty\") then\n		local random = Random",
 	[[if( variable == "shuffle_deck_when_empty") then
 		local random = Randomf]]},
 
@@ -322,7 +322,7 @@ list_2 = {
 
 -- prob_draw_many]]},
 
-	{"if( variable == \"shuffle_deck_when_empty\") then\r\n		local random = Random",
+	{"if( variable == \"shuffle_deck_when_empty\") then\n		local random = Random",
 	[[if( variable == "shuffle_deck_when_empty") then
 		local random = Randomf]]},
 
